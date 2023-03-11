@@ -8,7 +8,11 @@ import LoginView from '@/views/admin/LoginView'
 import AttendView from '@/views/admin/AttendView'
 import AttendRead from '@/components/admin/attend/AttendRead'
 
-import AdminInbodyView from '@/views/admin/AdminInbodyView'
+import InbodyPeriodView from '@/views/admin/InbodyPeriodView'
+import InbodyPeriodRead from '@/components/admin/inbody/InbodyPeriodRead'
+import InbodyPeriodStu from '@/components/admin/inbody/InbodyPeriodStu'
+import InbodyPeriodDetail from '@/components/admin/inbody/InbodyPeriodDetail'
+
 import InbodyDateView from '@/views/admin/InbodyDateView'
 
 import StudentView from '@/views/admin/StudentView'
@@ -19,12 +23,15 @@ import StudentDelete from '@/components/admin/student/StudentDelete'
 
 // Kiosk Page
 import IndexView from '@/views/kiosk/IndexView'
+
 import AttendCheckView from '@/views/kiosk/AttendCheckView'
+
 import InbodyView from '@/views/kiosk/InbodyView'
 import InbodyDetailView from '@/views/kiosk/InbodyDetailView'
 import InbodyCreateView from '@/views/kiosk/InbodyCreateView'
 import InbodyHistoryView from '@/views/kiosk/InbodyHistoryView'
 import InbodyUpdateView from '@/views/kiosk/InbodyUpdateView'
+
 import PasswordUpdateView from '@/views/kiosk/PasswordUpdateView'
 import GymView from '@/views/kiosk/GymView'
 
@@ -116,8 +123,33 @@ const routes = [
   },
   {
     path: '/admin/inbody',
-    name: 'adminInbody',
-    component: AdminInbodyView,
+    component: InbodyPeriodView,
+    children: [
+      {
+        path: '',
+        name: 'inbodyPeriod',
+        component: InbodyPeriodRead,
+      },
+      {
+        path: '/admin/inbody/student',
+        name: 'inbodyPeriodStu',
+        component: InbodyPeriodStu,
+      },
+      {
+        path: '/admin/inbody/detail',
+        name: 'inbodyPeriodDetail',
+        component: InbodyPeriodDetail,
+      },
+      // {
+      //   path: '/admin/indbody/update',
+      //   name: 'inbodyPeriod',
+      //   component: InbodyPeriodRead,
+      // },{
+      //   path: '/admin/indbody/delete',
+      //   name: 'inbodyPeriod',
+      //   component: InbodyPeriodRead,
+      // },
+    ],
     beforeEnter(to, from, next) {
       if (store.getters.isLogin(Date.now())) {
         next()

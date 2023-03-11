@@ -75,7 +75,7 @@ import TheButton from '@/components/admin/common/TheButton.vue'
 import TheInput from '@/components/admin/common/TheInput.vue'
 
 export default {
-  name: 'InbodyHistoryHeader',
+  name: 'InbodyHeader',
   components: {
     TheButton,
     TheInput,

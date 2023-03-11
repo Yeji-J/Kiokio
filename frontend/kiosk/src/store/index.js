@@ -111,10 +111,6 @@ export default new Vuex.Store({
       const { studentIndex, inbodyIndex, inbody } = payload
       state.inbodyStudents[studentIndex].inbody_set[inbodyIndex] = inbody
     },
-    DELETE_STUDENT_INBODY_DETAIL(state, payload) {
-      const { studentIndex, inbodyIndex } = payload
-      state.inbodyStudents[studentIndex].inbody_set.splice(inbodyIndex, 1)
-    },
     TOGGLE_SHOW_LOGIN_MODAL(state, boolean) {
       state.showLoginModal = boolean
     },
@@ -128,7 +124,7 @@ export default new Vuex.Store({
       state.gymContent = payload
     },
     // admin
-    GET_STUDENTS(state, payload) {
+    SAVE_STUDENTS(state, payload) {
       state.students = payload
     },
     SAVE_QUERY(state, payload) {
@@ -182,10 +178,25 @@ export default new Vuex.Store({
         },
       })
         .then((res) => {
-          context.commit('GET_STUDENTS', res.data)
+          context.commit('SAVE_STUDENTS', res.data)
         })
         .catch((err) => {
           console.error(err)
+          alert('해당 정보의 학생이 존재하지 않습니다')
+        })
+    },
+    getInbodyStudents(context, url) {
+      axiosAuth({
+        method: 'get',
+        url: `${context.state.axios_URL}/${url}`,
+        headers: {
+          Authorization: `Bearer ${context.state.access}`,
+        },
+      })
+        .then((res) => {
+          context.commit('SAVE_INBODY_STUDENTS', res.data)
+        })
+        .catch(() => {
           alert('해당 정보의 학생이 존재하지 않습니다')
         })
     },

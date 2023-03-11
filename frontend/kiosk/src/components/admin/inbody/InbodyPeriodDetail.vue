@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="d-flex justify-content-between">
-      <div></div>
+      <div @click="() => this.$router.push({ name: 'inbodyPeriod' })">
+        뒤로가기
+      </div>
 
       <div class="d-flex">
         <font-awesome-icon
@@ -26,7 +28,6 @@
       </div>
     </div>
 
-    <!-- INBODY CONTENT -->
     <div id="printContent" style="font-size: 2.3vh; padding: 2vh">
       <div class="w-100" style="font-size: 2.5vh; margin-bottom: 5vh">
         {{ student.grade }}학년 {{ student.room }}반 {{ student.number }}번
@@ -132,17 +133,25 @@ import axiosAuth from '@/axios/axios'
 import printJS from 'print-js'
 
 export default {
-  name: 'AdminInbodyDetailRead',
-  props: {
-    studentIndex: Number,
-    inbodyIndex: Number,
-  },
+  name: 'InbodyPeriodDetail',
+
+  // data() {
+  //   return {
+  //     studentIndex: null,
+  //   }
+  // },
   computed: {
     axios_URL() {
       return this.$store.state.axios_URL
     },
     access() {
       return this.$store.state.access
+    },
+    studentIndex() {
+      return this.$route.query.student
+    },
+    inbodyIndex() {
+      return this.$route.query.inbody
     },
     student() {
       return this.$store.state.inbodyStudents[this.studentIndex]
@@ -152,9 +161,14 @@ export default {
         this.inbodyIndex
       ]
     },
+    query() {
+      return this.$store.state.query
+    },
   },
   methods: {
     deleteInbody() {
+      if (!confirm('정말 삭제하시겠습니까?')) return
+
       axiosAuth({
         method: 'delete',
         url: `${this.axios_URL}/students/inbody/${this.inbody.id}/admin/`,
@@ -163,12 +177,17 @@ export default {
         },
       })
         .then(() => {
-          const payload = {
-            studentIndex: this.studentIndex,
-            inbodyIndex: this.inbodyIndex,
-          }
-          this.$store.commit('DELETE_STUDENT_INBODY_DETAIL', payload)
-          this.$emit('change-mode-default')
+          const { startDate, endDate, grade, room } = this.$route.query
+          const url = `students/${startDate}/${endDate}/${grade}/${room}/inbody/admin/`
+          this.$store.dispatch('getInbodyStudents', url)
+
+          this.$store.commit('SAVE_QUERY', {
+            startDate,
+            endDate,
+            grade,
+            room,
+          })
+          this.$router.push({ name: 'inbodyPeriod', query: this.query })
         })
         .catch((err) => {
           console.error(err)

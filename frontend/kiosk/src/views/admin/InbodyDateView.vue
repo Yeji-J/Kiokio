@@ -33,7 +33,7 @@
         <div id="admin-scroll-box" style="height: 55vh">
           <div v-if="mode === 'R'">
             <table style="margin-bottom: 0.5vh" id="inbody-date-table">
-              <AdminInbodyDateTableColumn />
+              <InbodyDateLabel />
               <AdminInbodyDateReadItem
                 v-for="(inbody, index) in inbodies"
                 :key="inbody.id"
@@ -44,7 +44,7 @@
           </div>
           <div v-if="mode === 'U'">
             <table style="margin-bottom: 0.5vh">
-              <AdminInbodyDateTableColumn />
+              <InbodyDateLabel />
               <AdminInbodyDateUpdateItem
                 v-for="(inbody, index) in inbodies"
                 :key="inbody.id"
@@ -57,7 +57,7 @@
           </div>
           <div v-if="mode === 'D'">
             <table style="margin-bottom: 0.5vh">
-              <AdminInbodyDateTableColumn />
+              <InbodyDateLabel />
               <AdminInbodyDateDeleteItem
                 v-for="(inbody, index) in inbodies"
                 :key="inbody.id"
@@ -76,7 +76,7 @@
 <script>
 import AdminHeader from '@/components/admin/common/AdminHeader.vue'
 import InbodyDateHeader from '@/components/admin/inbody/InbodyDateHeader.vue'
-import AdminInbodyDateTableColumn from '@/components/admin/inbody/AdminInbodyDateTableColumn.vue'
+import InbodyDateLabel from '@/components/admin/inbody/InbodyDateLabel.vue'
 import AdminInbodyDateReadItem from '@/components/admin/inbody/AdminInbodyDateReadItem.vue'
 import AdminInbodyDateUpdateItem from '@/components/admin/inbody/AdminInbodyDateUpdateItem.vue'
 import AdminInbodyDateDeleteItem from '@/components/admin/inbody/AdminInbodyDateDeleteItem.vue'
@@ -91,7 +91,7 @@ export default {
   components: {
     AdminHeader,
     InbodyDateHeader,
-    AdminInbodyDateTableColumn,
+    InbodyDateLabel,
     AdminInbodyDateReadItem,
     AdminInbodyDateUpdateItem,
     AdminInbodyDateDeleteItem,

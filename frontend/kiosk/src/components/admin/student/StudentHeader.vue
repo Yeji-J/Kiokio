@@ -34,7 +34,7 @@ export default {
   methods: {
     goAdmin() {
       this.$router.push({ name: 'admin' })
-      this.$store.commit('GET_STUDENTS', [])
+      this.$store.commit('SAVE_STUDENTS', [])
     },
   },
 }

@@ -208,7 +208,7 @@ export default {
         .then(() => {
           alert('성공적으로 저장됐습니다.')
           this.$store.commit('SAVE_QUERY', {})
-          this.$store.commit('GET_STUDENTS', [])
+          this.$store.commit('SAVE_STUDENTS', [])
           this.$router.push({ name: 'student' })
         })
         .catch(() => {

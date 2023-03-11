@@ -29,7 +29,7 @@
         <div class="inbody__buttons">
           <button
             class="shadow"
-            @click="() => $router.push({ name: 'adminInbody' })"
+            @click="() => $router.push({ name: 'inbodyPeriod' })"
           >
             기간으로 조회
           </button>

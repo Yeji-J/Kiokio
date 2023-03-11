@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between">
       <IconButton
         :icon="'fa-solid fa-circle-arrow-left'"
-        :onClick="() => $emit('change-mode-default')"
+        :onClick="() => this.$router.push({ name: 'inbodyPeriod' })"
       />
 
       <IconButton
@@ -93,15 +93,12 @@ import * as XLSX from 'xlsx'
 import axiosAuth from '@/axios/axios'
 
 export default {
-  name: 'InbodyStu',
+  name: 'InbodyPeriodStu',
   components: {
     AdminInbodyStudentTableRow,
     AdminInbodyStudentReadItem,
     AdminInbodyStudentUpdateItem,
     IconButton,
-  },
-  props: {
-    studentIndex: Number,
   },
   data() {
     return {
@@ -113,11 +110,17 @@ export default {
     }
   },
   computed: {
-    axios_URL() {
-      return this.$store.state.axios_URL
-    },
-    access() {
-      return this.$store.state.access
+    // axios_URL() {
+    //   return this.$store.state.axios_URL
+    // },
+    // access() {
+    //   return this.$store.state.access
+    // },
+    // student() {
+    //   return this.$store.state.inbodyStudents[this.studentIndex]
+    // },
+    studentIndex() {
+      return this.$route.query.student
     },
     student() {
       return this.$store.state.inbodyStudents[this.studentIndex]

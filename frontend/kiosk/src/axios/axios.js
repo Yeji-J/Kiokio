@@ -30,7 +30,6 @@ axiosAuth.interceptors.response.use(
         )
         .then((res) => {
           // 새로운 토큰 발급 성공
-          console.log('refresh access token')
           const newAccess = res.data.access
           store.state.acess = newAccess
           originalConfig.headers.Authorization = `Bearer ${newAccess}`

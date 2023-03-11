@@ -14,7 +14,7 @@
     </td>
     <td
       class="clickable-box border"
-      @click="changeModeStudent"
+      @click="() => goStudent(index)"
       style="width: 10vh"
     >
       {{ student.name }}
@@ -25,7 +25,7 @@
       :inbody-index="inbodyIndex"
       class="clickable-box border"
       style="padding-left: 0.5vh; padding-right: 0.5vh; width: 15vh"
-      @click="changeModeDetail(inbodyIndex)"
+      @click="() => goDetail(index, inbodyIndex)"
     >
       {{ inbody.test_date }}
     </td>
@@ -34,19 +34,41 @@
 
 <script>
 export default {
-  name: "AdminInbodyItem",
+  name: 'AdminInbodyItem',
   props: {
     student: Object,
     index: Number,
   },
+  computed: {
+    query() {
+      return this.$store.state.query
+    },
+  },
   methods: {
     changeModeStudent() {
       const studentIndex = this.index
-      this.$emit("change-mode-student", studentIndex)
+      this.$emit('change-mode-student', studentIndex)
     },
     changeModeDetail(inbodyIndex) {
       const studentIndex = this.index
-      this.$emit("change-mode-detail", studentIndex, inbodyIndex)
+      this.$emit('change-mode-detail', studentIndex, inbodyIndex)
+    },
+    goStudent(student) {
+      this.$store.commit('SAVE_QUERY', {
+        ...this.query,
+        student,
+      })
+
+      this.$router.push({ name: 'inbodyPeriodStu', query: this.query })
+    },
+    goDetail(student, inbody) {
+      this.$store.commit('SAVE_QUERY', {
+        ...this.query,
+        student,
+        inbody,
+      })
+
+      this.$router.push({ name: 'inbodyPeriodDetail', query: this.query })
     },
   },
 }
